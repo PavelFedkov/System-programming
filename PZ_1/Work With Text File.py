@@ -7,12 +7,12 @@ street = str("Улица:"+input('Введите улицу: '))
 house = str("Дом:"+input('Введите номер дома: '))
 I = [name, fname, year, town, street, house]
 f1 = open("Work.txt", "a")
-if selects == 1:
+if selects == 1: # Программа сделает столбик(за счет \n)
     f1.write('\n')
     for item in I:
         f1.write("%s\n" % item)
     f1.write('\n')
-else:
+else:   # Программа сделает строчку(за счет ха0)
     for item in I:
         f1.write("%s\xa0" % item)
     f1.write('\n')
