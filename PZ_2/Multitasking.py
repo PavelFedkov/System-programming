@@ -1,58 +1,53 @@
-import re
 import threading
-import shutil
+
+def sum(a , b):
+        sum1 = a+b
+        with open('first.txt','w+',encoding='utf-8')as file:
+            file.write(f'Сумма: {sum1}\n')
+            print(f'Сумма: {sum1}\n')
 
 
+def mul(a,  b):
+    mul1 = a * b
+    with open('second.txt', 'w+', encoding='utf-8') as file:
+        file.write(f'Произведение: {mul1}\n')
+        print(f'Произведение: {mul1}\n')
 
-def writer(x, event_for_wait, event_for_set):
-    for i in range(1):
-        event_for_wait.wait() # wait for event
-        event_for_wait.clear() # clean event for future
-        print (x)
-        event_for_set.set() # set event for neighbor thread
+def sub(a, b):
+        sub1 = a -b
+        with open('third.txt', 'w+', encoding='utf-8') as file:
+            file.write(f'Вычитание: {sub1}\n')
+            print(f'Вычитание: {sub1}\n')
 
-p=re.compile(r'\d.')
-p1=re.compile(r'\w.')
-f2=open("second.txt","w")
-f3 =open("third.txt","w")
-with open('first.txt','r',encoding='utf-8')as file:
-     text = file.read()
-     stage=re.findall(p,text)
-     f2.write((f'Количество чисел: {len(stage)}\n'))
-with open('first.txt', 'r', encoding='utf-8') as file:
-    text = file.read()
-    stage = re.findall(p1, text)
-    f3.write((f'Количество букв: {len(stage)}\n'))
-
-with open('first.txt','r',encoding='utf-8') as first, open('final.txt', 'w') as second:
-    data = first.read()
-    second.write(data)
-f4 = open("final.txt","a+")
-f4.write('\n')
-f2=open("second.txt","r")
-f4.write(f2.read())
-f3 =open("third.txt","r")
-f4.write('\n')
-f4.write(f3.read())
+def div(a, b):
+        div1 = a / b
+        with open('final.txt', 'w+', encoding='utf-8') as file:
+            file.write(f'Вычитание: {div1}\n')
+            print(f'Вычитание: {div1}\n')
+with open('fatality.txt', 'w+', encoding='windows-1251') as fil:
+    f1 = open('first.txt','r')
+    f2 = open('second.txt','r')
+    f3 =open('third.txt','r')
+    f4 =open('final.txt','r')
+    print( f1.read(), '\n', f2.read(), '\n',
+                      f3.read(),'\n', f4.read() , '\n', file=fil)
 # init events
 e1 = threading.Event()
 e2 = threading.Event()
 e3 = threading.Event()
 e4 = threading.Event()
 # init threads
-t1 = threading.Thread(name = "")
-t2 = threading.Thread(name = "Занесение кол-ва чисел во второй файл")
-t3 = threading.Thread(name = "Занесение кол-ва букв в третий файл")
-t4 = threading.Thread(name = "Создание и заполнение статистического файла")
-t1 = threading.Thread(target=writer, args=("Открытие начального файла", e1 , e2))
-t2 = threading.Thread(target=writer, args=("Подсчет количества чисел в файле", e2, e3))
-t3 = threading.Thread(target=writer, args=("Подсчет количества чисел в файле", e3, e4))
-t4 = threading.Thread(target=writer, args=("Создание финального файла", e4, e1))
+t1 = threading.Thread(target=sum, args=(3 , 5))
+t2 = threading.Thread(target=mul, args=(10 , 25))
+t3 = threading.Thread(target=sub, args=(11 , 9))
+t4 = threading.Thread(target=div, args=(20 , 4))
+
 # start threads
 t1.start()
 t2.start()
 t3.start()
 t4.start()
+
 e1.set() # initiate the first event
 
 # join threads to the main thread
