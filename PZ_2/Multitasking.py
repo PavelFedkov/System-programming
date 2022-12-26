@@ -26,7 +26,7 @@ def div(a, b):
         with open('final.txt', 'w+', encoding='utf-8') as file:
             file.write(f'Деление: {div1}\n')
             print(f'Деление: {div1}\n')
-with open('fatality.txt', 'w+', encoding='windows-1251') as fil:
+with open('fatality.txt', 'w+', encoding='UTF-8') as fil:
     f1 = open('first.txt','r')
     f2 = open('second.txt','r')
     f3 =open('third.txt','r')
